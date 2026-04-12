@@ -1,77 +1,88 @@
 import streamlit as st
 import requests
+import google.generativeai as genai
 
-# Master Identity: 325270269318 | The Absolute Sovereign Engine
+# ==========================================
+# 👑 THE SOVEREIGN AI ENGINE (Middleware)
+# ==========================================
+# Mastermind's API Key Locked & Loaded
+genai.configure(api_key="AIzaSyA3K7124jbkn3qJiC7h6L8JTifs5lkTEGQ")
+
+def sovereign_ai_analyzer(raw_api_data, user_query):
+    """
+    यह इंजन कच्चे डेटा को लेगा और 'Samraat OS' की टोन में डिकोड करेगा।
+    """
+    model = genai.GenerativeModel('gemini-1.5-pro')
+    prompt = f"""
+    You are the core intelligence of 'Samraat OS'. 
+    Here is the raw real-time data fetched from external servers: {raw_api_data}
+    
+    User Query: '{user_query}'
+    
+    Task: Decode this data surgically. Provide a clean, professional, and 
+    highly accurate response without any fluff. Give it a 'Sovereign' touch.
+    """
+    response = model.generate_content(prompt)
+    return response.text
+
+# ==========================================
+# 🤴🏻 MAIN SAMRAAT OS ARCHITECTURE
+# ==========================================
 def main():
     st.set_page_config(page_title="Sovereign Grand Hub", page_icon="👑", layout="wide")
 
     # Ultra-Professional Global UI Styling
     st.markdown("""
         <style>
-        .stApp { background-color: #050505; color: #e0e0e0; }
-        .main-card { 
-            background: rgba(17, 17, 17, 0.95); padding: 25px; border-radius: 15px; 
-            border: 1px solid #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-            margin-bottom: 20px;
-        }
-        .badge {
-            background: #ff4b4b; color: white; padding: 4px 10px;
-            border-radius: 6px; font-weight: bold; font-size: 12px; margin-right: 8px;
-        }
-        .stButton>button {
-            background: linear-gradient(45deg, #00ffcc, #0088ff);
-            color: black; font-weight: bold; border-radius: 20px; width: 100%;
-        }
-        h1, h2, h3 { color: #00ffcc !important; text-transform: uppercase; }
+        /* Add your custom CSS here if needed */
         </style>
     """, unsafe_allow_html=True)
 
     # Sidebar Navigation - No Confusion, Direct Access
     with st.sidebar:
         st.title("🤴🏻 Samraat OS")
-        st.write(f"Empire ID: **325270269318**")
+        st.write("Empire ID: **325270269318**")
         st.divider()
-        choice = st.radio("Surgical Control Center:", 
-                         ["🎬 Media-Quest (Real-Time)", "🎯 AI Seek-Use (Live)", "⚖️ Electricity Audit"])
+        choice = st.radio("Surgical Control Center:",
+                          ["🎬 Media-Quest (Real-Time)", "🎯 AI Seek-Use (Live)", "⚖️ Electricity Audit"])
         st.divider()
         st.success("Sovereign Systems: ONLINE ✅")
 
-    # --- 🎬 MODULE 1: MEDIA-QUEST (REAL-TIME DATA) ---
+    # --- 🎬 MODULE 1: MEDIA-QUEST (REAL-TIME DATA + AI DECODE) ---
     if choice == "🎬 Media-Quest (Real-Time)":
         st.title("🎬 Media-Quest: Global Tracker")
         st.write("Fetching Live Release Dates, Ratings & Platforms from Global Databases.")
         q = st.text_input("Search Movie/Show (e.g. Pushpa 2, Joker 2):")
-        
+
         if st.button("Surgical Scrape 🔍"):
             if q:
                 with st.spinner(f"Infiltrating servers for {q}..."):
-                    # This logic simulates a direct API fetch with unique data per query
-                    st.markdown(f"""
-                    <div class="main-card">
-                        <h2 style='color:#00ffcc;'>🎥 {q.upper()}</h2>
-                        <span class="badge">TRENDING</span><span class="badge">WORLDWIDE RELEASE</span>
-                        <hr style='border: 0.1px solid #333;'>
-                        <div style='display: flex; justify-content: space-between;'>
-                            <p>📅 <b>Release Date:</b> 2024-2026 Active Window</p>
-                            <p>⭐ <b>IMDb:</b> Real-time Verified</p>
-                        </div>
-                        <p>🎭 <b>Category:</b> Professional Content Analysis</p>
-                        <p>📺 <b>Platforms:</b> Netflix, Amazon Prime, Disney+ (Check Local Listing)</p>
-                        <p style='color:#888; font-size:12px; margin-top:10px;'>Source: Global Search Logic | ID: 325270269318</p>
-                    </div>
-                    """, unsafe_allow_html=True)
-            else: st.warning("Enter a target, Samraat!")
+                    try:
+                        # स्टेप A: यहाँ रउआ अपनी असली API (जैसे OMDB/TMDB) का requests.get() लगाएंगे।
+                        # अभी टेस्टिंग के लिए डमी रॉ डेटा:
+                        raw_data_from_api = f"Raw Database info for {q}: Extremely high anticipation, global release active window."
+                        
+                        # स्टेप B: 'द मास्टरस्ट्रोक' - कच्चे डेटा को AI इंजन में डालें
+                        ai_surgical_report = sovereign_ai_analyzer(raw_data_from_api, q)
+                        
+                        # स्टेप C: AI का लाइव डिकोड किया हुआ रिज़ल्ट स्क्रीन पर छाप दें
+                        st.success("Target Decoded by Sovereign AI ✅")
+                        st.write(ai_surgical_report)
+                        
+                    except Exception as e:
+                        st.error(f"🚨 Sovereign Servers Alert: {e}. (Check if API usage limits are reached)")
+            else: 
+                st.warning("Enter a target, Samraat!")
 
     # --- 🎯 MODULE 2: AI SEEK-USE (LIVE 2026 UPDATES) ---
     elif choice == "🎯 AI Seek-Use (Live)":
         st.title("🎯 AI Seek-Use: Pro Discovery")
         st.write("Surgically Filtering 2026's Top AI Tools for Worldwide Needs.")
-        cat = st.selectbox("Apni Zarurat Chuniye (Category):", 
-                          ["Video Generation", "Image Art", "Coding & Logic", "Office/Writing"])
-        
+        cat = st.selectbox("Apni Zarurat Chuniye (Category):",
+                           ["Video Generation", "Image Art", "Coding & Logic", "Office/Writing"])
+
         if st.button("Scan AI Universe 🔍"):
             st.subheader(f"🚀 Top Sovereign Picks for {cat}:")
-            # Dynamic Results based on selection
             if cat == "Video Generation":
                 st.info("1. Sora AI (Hyper-Realistic) | 2. HeyGen (Avatar Master) | 3. Runway Gen-3")
             elif cat == "Image Art":
@@ -89,7 +100,7 @@ def main():
         with col1: u = st.number_input("Bill Units:", value=2300.0)
         with col2: l = st.number_input("Load (KW):", value=1.0)
         with col3: d = st.number_input("Days:", value=88)
-        
+
         if st.button("Start Surgical Audit"):
             max_p = l * 24 * d
             if u > max_p:
