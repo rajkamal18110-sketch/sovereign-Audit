@@ -1,117 +1,99 @@
 import streamlit as st
-import requests
+import google.generativeai as genai
 
-# ==========================================
-# 👑 THE SOVEREIGN AI ENGINE (Direct API Bypass)
-# ==========================================
-# Mastermind's API Key
-API_KEY = "AIzaSyA3K7124jbkn3qJiC7h6L8JTifs5lkTEGQ"
-
-def sovereign_ai_analyzer(raw_api_data, user_query):
-    """
-    No SDKs. Direct Server-to-Server connection.
-    """
-    # सीधा Google के मेन सर्वर का दरवाज़ा
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
-    
-    prompt = f"""
-    You are the core intelligence of 'Samraat OS'. 
-    Here is the raw real-time data fetched from external servers: {raw_api_data}
-    
-    User Query: '{user_query}'
-    
-    Task: Decode this data surgically. Provide a clean, professional, and 
-    highly accurate response without any fluff. Give it a 'Sovereign' touch.
-    """
-    
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}]
-    }
-    
-    try:
-        # सीधा डेटा फायर
-        response = requests.post(url, json=payload)
-        response_data = response.json()
-        
-        # JSON डिकोड करके सिर्फ जवाब निकालना
-        return response_data['candidates'][0]['content']['parts'][0]['text']
-    except Exception as e:
-        return f"🚨 API Bypass Error: {e} | Server Reply: {response.text}"
-
-# ==========================================
-# 🤴🏻 MAIN SAMRAAT OS ARCHITECTURE
-# ==========================================
+# Master Identity: 325270269318 | The Neural Sovereign Engine
 def main():
-    st.set_page_config(page_title="Sovereign Grand Hub", page_icon="👑", layout="wide")
+    st.set_page_config(page_title="Sovereign Neural Hub", page_icon="🧠", layout="wide")
 
+    # API Configuration
+    genai.configure(api_key="AIzaSyC_wJubQznptXowVLJOOCubka-zqUdQln8")
+    model = genai.GenerativeModel('gemini-1.5-flash')
+
+    # Cyber-Premium UI Styling
     st.markdown("""
         <style>
-        /* Add your custom CSS here if needed */
+        .stApp { background-color: #020202; color: #e0e0e0; }
+        .result-card { 
+            background: rgba(0, 255, 204, 0.05); padding: 25px; border-radius: 15px; 
+            border: 1px solid #00ffcc; box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            margin-bottom: 20px; line-height: 1.6;
+        }
+        h1, h2, h3 { color: #00ffcc !important; text-shadow: 0 0 10px #00ffcc55; }
+        .stButton>button {
+            background: linear-gradient(45deg, #00ffcc, #0088ff);
+            color: black; font-weight: bold; border-radius: 20px; border: none;
+        }
         </style>
     """, unsafe_allow_html=True)
 
+    # Sidebar Navigation
     with st.sidebar:
         st.title("🤴🏻 Samraat OS")
-        st.write("Empire ID: **325270269318**")
+        st.write("Master ID: 325270269318")
         st.divider()
-        choice = st.radio("Surgical Control Center:",
-                          ["🎬 Media-Quest (Real-Time)", "🎯 AI Seek-Use (Live)", "⚖️ Electricity Audit"])
+        choice = st.radio("Surgical Command:", 
+                         ["🎬 Media-Quest (Live AI)", "🎯 AI Seek-Use (Global)", "⚖️ Electricity Audit"])
         st.divider()
-        st.success("Sovereign Systems: ONLINE ✅")
+        st.success("Neural Link: ACTIVE ⚡")
 
-    # --- 🎬 MODULE 1: MEDIA-QUEST ---
-    if choice == "🎬 Media-Quest (Real-Time)":
-        st.title("🎬 Media-Quest: Global Tracker")
-        st.write("Fetching Live Release Dates, Ratings & Platforms from Global Databases.")
-        q = st.text_input("Search Movie/Show (e.g. Pushpa 2, Joker 2):")
-
-        if st.button("Surgical Scrape 🔍"):
-            if q:
-                with st.spinner(f"Infiltrating servers for {q}..."):
-                    try:
-                        raw_data_from_api = f"Raw Database info for {q}: Extremely high anticipation, global release active window."
-                        ai_surgical_report = sovereign_ai_analyzer(raw_data_from_api, q)
-                        st.success("Target Decoded by Sovereign AI ✅")
-                        st.write(ai_surgical_report)
-                    except Exception as e:
-                        st.error(f"🚨 Sovereign Servers Alert: System busy.")
-            else: 
-                st.warning("Enter a target, Samraat!")
-
-    # --- 🎯 MODULE 2: AI SEEK-USE ---
-    elif choice == "🎯 AI Seek-Use (Live)":
-        st.title("🎯 AI Seek-Use: Pro Discovery")
-        st.write("Surgically Filtering 2026's Top AI Tools for Worldwide Needs.")
-        cat = st.selectbox("Apni Zarurat Chuniye (Category):",
-                           ["Video Generation", "Image Art", "Coding & Logic", "Office/Writing"])
-
-        if st.button("Scan AI Universe 🔍"):
-            st.subheader(f"🚀 Top Sovereign Picks for {cat}:")
-            if cat == "Video Generation":
-                st.info("1. Sora AI (Hyper-Realistic) | 2. HeyGen (Avatar Master) | 3. Runway Gen-3")
-            elif cat == "Image Art":
-                st.info("1. Midjourney v7 | 2. DALL-E 3 (Visual Pro) | 3. Leonardo AI")
-            elif cat == "Coding & Logic":
-                st.info("1. Cursor AI (Pro Editor) | 2. Claude 3.5 Sonnet | 3. GitHub Copilot")
-            else:
-                st.info("1. Jasper AI | 2. Notion AI | 3. Copy.ai (Sovereign Level)")
-
-    # --- ⚖️ MODULE 3: ELECTRICITY AUDIT ---
+    if choice == "🎬 Media-Quest (Live AI)":
+        run_media_ai(model)
+    elif choice == "🎯 AI Seek-Use (Global)":
+        run_ai_finder(model)
     else:
-        st.title("⚖️ Electricity Surgical Audit")
-        st.write("Detecting Fraud and Ghost Units | Master Logic: 325270269318")
-        col1, col2, col3 = st.columns(3)
-        with col1: u = st.number_input("Bill Units:", value=2300.0)
-        with col2: l = st.number_input("Load (KW):", value=1.0)
-        with col3: d = st.number_input("Days:", value=88)
+        run_audit()
 
-        if st.button("Start Surgical Audit"):
-            max_p = l * 24 * d
-            if u > max_p:
-                st.error(f"🚨 FRAUD DETECTED! Ghost Units Found: {u-max_p:.0f}")
-                st.markdown(f"**Reason:** 1KW load cannot generate more than {max_p:.0f} units in {d} days.")
-            else:
-                st.success("✅ Billing Logic is Secure and Verified.")
+def run_media_ai(model):
+    st.title("🎬 Media-Quest: Neural Search")
+    q = st.text_input("Search Movie/Show (e.g. Pushpa 2, Squid Game S2):")
+    
+    if st.button("Surgical Scrape 🔍"):
+        if q:
+            with st.spinner(f"Gemini is infiltrating global databases for {q}..."):
+                # Professional Prompting for Real Data
+                prompt = f"""Act as a professional movie critic and database agent. 
+                Provide details for '{q}' in this format:
+                - Release Date: (Be specific)
+                - IMDb Rating: (Estimate if not out)
+                - Platforms: (Where to watch)
+                - Category: (Genre)
+                - Surgical Summary: (2 lines)
+                Use professional tone."""
+                
+                try:
+                    response = model.generate_content(prompt)
+                    st.markdown(f"""
+                    <div class="result-card">
+                        <h2>🎬 REPORT: {q.upper()}</h2>
+                        <div style="color:#ffffff;">{response.text.replace('-', '<br>✅')}</div>
+                        <p style="color:#00ffcc; font-size:12px; margin-top:15px;">Verified by Sovereign Neural Logic | 325270269318</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                except Exception as e:
+                    st.error("Neural Link Error. API limits or key issue.")
+        else: st.warning("Target enter karein!")
+
+def run_ai_finder(model):
+    st.title("🎯 AI Seek-Use: Pro Finder")
+    needs = st.text_input("What do you want to achieve with AI? (e.g. Make viral reels, write code)")
+    
+    if st.button("Find Top Tools 🔍"):
+        if needs:
+            with st.spinner("Analyzing AI Market..."):
+                prompt = f"List top 5 AI tools for '{needs}' with their main features and prices. Be professional."
+                response = model.generate_content(prompt)
+                st.markdown(f"<div class='result-card'>{response.text.replace('**', '')}</div>", unsafe_allow_html=True)
+        else: st.warning("Need enter karein!")
+
+def run_audit():
+    st.title("⚖️ Electricity Surgical Audit")
+    u = st.number_input("Units:", value=2300.0)
+    l = st.number_input("Load (KW):", value=1.0)
+    d = st.number_input("Days:", value=88)
+    if st.button("Start Audit"):
+        max_p = l * 24 * d
+        if u > max_p: st.error(f"🚨 FRAUD! Ghost Units: {u-max_p:.0f}")
+        else: st.success("✅ Billing Logic Secure.")
 
 if __name__ == "__main__":
     main()
