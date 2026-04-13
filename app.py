@@ -1,21 +1,20 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-import re
 
-# Master ID: 325270269318 | The Neural Scraper
+# Master Identity: 325270269318 | The Independent Sovereign Engine
 def main():
-    st.set_page_config(page_title="Sovereign Hub v9.0", layout="wide")
+    st.set_page_config(page_title="Sovereign Hub v10.0", layout="wide")
 
-    # Dark-Cyber Theme
+    # Cyber-Empire UI Styling
     st.markdown("""
         <style>
-        .stApp { background-color: #020202; color: #e0e0e0; }
-        .info-card { 
-            background: #111; padding: 20px; border-radius: 12px; 
-            border-left: 5px solid #00ffcc; margin-bottom: 15px;
+        .stApp { background-color: #050505; color: white; }
+        .data-card { 
+            border: 2px solid #00ffcc; padding: 20px; border-radius: 15px; 
+            background: #111; margin-bottom: 20px;
         }
-        h1, h2 { color: #00ffcc !important; text-shadow: 0 0 10px #00ffcc44; }
+        h1, h2 { color: #00ffcc !important; }
         </style>
     """, unsafe_allow_html=True)
 
@@ -23,55 +22,54 @@ def main():
         st.title("🤴🏻 Samraat OS")
         st.write("ID: 325270269318")
         st.divider()
-        choice = st.radio("Surgical Tool:", ["🎬 Live Media-Quest", "⚖️ Electricity Audit"])
-        st.info("System Status: FREE & LIVE ✅")
+        choice = st.radio("Surgical Tool:", ["🎬 Media-Quest (Live)", "⚖️ Audit"])
 
-    if choice == "🎬 Live Media-Quest":
-        run_media_scraper()
+    if choice == "🎬 Media-Quest (Live)":
+        run_media_quest()
     else:
-        run_audit_logic()
+        run_audit()
 
-def run_media_scraper():
-    st.title("🎬 Live Media-Quest (No-API Edition)")
-    movie = st.text_input("Enter Target (e.g. Pushpa 2, Avatar 3):")
-
-    if st.button("Surgical Strike 🔍"):
-        if movie:
-            with st.spinner(f"Infiltrating Global Databases for {movie}..."):
-                # Real-Time Scraping Logic (DuckDuckGo Search Bypass)
-                # Hum bina API ke search results se data nikal rahe hain
-                search_url = f"https://duckduckgo.com/html/?q={movie}+release+date+imdb"
+def run_media_quest():
+    st.title("🎬 Media-Quest (Zero-API Edition)")
+    q = st.text_input("Search Movie/Show (e.g. Pushpa 2, Squid Game):")
+    
+    if st.button("Surgical Scrape 🔍"):
+        if q:
+            with st.spinner(f"Infiltrating Global Servers for {q}..."):
+                # Real-Time Scrapping Logic using REQUESTS
+                # Hum DuckDuckGo ke simple HTML version ko use kar rahe hain (No API required)
+                search_url = f"https://html.duckduckgo.com/html/?q={q}+release+date"
                 headers = {'User-Agent': 'Mozilla/5.0'}
                 
                 try:
                     response = requests.get(search_url, headers=headers)
                     soup = BeautifulSoup(response.text, 'html.parser')
-                    results = soup.find_all('a', class_='result__a')
-
-                    st.markdown("### 📊 REPORT: Intelligence Gathered")
                     
-                    if results:
-                        for i, link in enumerate(results[:5]): # Top 5 Live Results
-                            title = link.text
-                            href = link.get('href')
-                            st.markdown(f"""
-                            <div class="info-card">
-                                <b>Source {i+1}:</b> {title}<br>
-                                <a href="{href}" target="_blank" style="color:#00ffcc;">View Deep Intelligence 🔗</a>
-                            </div>
-                            """, unsafe_allow_html=True)
-                        st.success(f"Verification Verified: 325270269318")
-                    else:
-                        st.error("No data leaked from the target. Try a different name.")
-                except:
-                    st.error("Neural Connection Interrupted. Refresh and try again.")
+                    # Pehla valid search snippet utha rahe hain
+                    snippet = soup.find('a', class_='result__snippet')
+                    
+                    st.markdown(f"""
+                    <div class="data-card">
+                        <h3>📊 Intelligence Found for: {q.upper()}</h3>
+                        <p>{snippet.text if snippet else "Data is encrypted. Try a more specific name."}</p>
+                        <hr>
+                        <p style="color:#00ffcc; font-size:12px;">Sovereign Logic: 325270269318 | No API Used</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+                except Exception as e:
+                    st.error("Neural Link Broken. Refresh the page.")
         else:
-            st.warning("Samraat, enter a target name!")
+            st.warning("Enter a target, Samraat!")
 
-def run_audit_logic():
-    # ... Aapka Electricity Logic same rahega ...
-    st.title("⚖️ Sovereign Audit")
-    st.write("Logic: 325270269318")
+def run_audit():
+    st.title("⚖️ Electricity Surgical Audit")
+    u = st.number_input("Units:", value=2300.0)
+    l = st.number_input("Load (KW):", value=1.0)
+    d = st.number_input("Days:", value=88)
+    if st.button("Start Audit"):
+        max_p = l * 24 * d
+        if u > max_p: st.error(f"🚨 FRAUD DETECTED! Ghost Units: {u-max_p:.0f}")
+        else: st.success("✅ Billing Logic Secure.")
 
 if __name__ == "__main__":
     main()
