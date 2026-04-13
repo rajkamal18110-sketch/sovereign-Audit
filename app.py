@@ -2,74 +2,88 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 
-# Master Identity: 325270269318 | The Independent Sovereign Engine
+# Master Identity: 325270269318 | Sovereign Neural Engine
 def main():
-    st.set_page_config(page_title="Sovereign Hub v10.0", layout="wide")
+    st.set_page_config(page_title="Sovereign Hub Pro", layout="wide", page_icon="👑")
 
-    # Cyber-Empire UI Styling
+    # Ultra-Premium UI Styling
     st.markdown("""
         <style>
-        .stApp { background-color: #050505; color: white; }
-        .data-card { 
-            border: 2px solid #00ffcc; padding: 20px; border-radius: 15px; 
-            background: #111; margin-bottom: 20px;
+        .stApp { background-color: #050505; color: #ffffff; }
+        .royal-card { 
+            background: linear-gradient(145deg, #111, #1a1a1a);
+            padding: 30px; border-radius: 20px; 
+            border: 2px solid #00ffcc;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.2);
+            margin-bottom: 25px;
         }
-        h1, h2 { color: #00ffcc !important; }
+        h1, h2, h3 { color: #00ffcc !important; text-transform: uppercase; letter-spacing: 3px; }
+        .stButton>button { 
+            width: 100%; border-radius: 50px; background: linear-gradient(45deg, #00ffcc, #0088ff); 
+            color: black; font-weight: bold; border: none; transition: 0.3s;
+        }
+        .stButton>button:hover { transform: scale(1.02); box-shadow: 0 0 20px #00ffcc; }
         </style>
     """, unsafe_allow_html=True)
 
     with st.sidebar:
-        st.title("🤴🏻 Samraat OS")
-        st.write("ID: 325270269318")
+        st.markdown(f"<h1>🤴🏻 SAMRAAT OS</h1>", unsafe_allow_html=True)
+        st.write(f"Sovereign ID: **325270269318**")
         st.divider()
-        choice = st.radio("Surgical Tool:", ["🎬 Media-Quest (Live)", "⚖️ Audit"])
+        mode = st.radio("Surgical Module:", ["🎬 Neural Media-Pulse", "⚖️ Audit Command"])
+        st.success("Core Status: INDEPENDENT ⚡")
 
-    if choice == "🎬 Media-Quest (Live)":
-        run_media_quest()
+    if mode == "🎬 Neural Media-Pulse":
+        run_charming_media()
     else:
-        run_audit()
+        run_audit_command()
 
-def run_media_quest():
-    st.title("🎬 Media-Quest (Zero-API Edition)")
-    q = st.text_input("Search Movie/Show (e.g. Pushpa 2, Squid Game):")
+def run_charming_media():
+    st.markdown("<h2>🎬 NEURAL MEDIA-PULSE</h2>", unsafe_allow_html=True)
+    st.write("Extracting Global Streaming Intelligence...")
     
+    target = st.text_input("Enter Movie/Show Target:", placeholder="e.g. Pushpa 2, Stranger Things")
+
     if st.button("Surgical Scrape 🔍"):
-        if q:
-            with st.spinner(f"Infiltrating Global Servers for {q}..."):
-                # Real-Time Scrapping Logic using REQUESTS
-                # Hum DuckDuckGo ke simple HTML version ko use kar rahe hain (No API required)
-                search_url = f"https://html.duckduckgo.com/html/?q={q}+release+date"
+        if target:
+            with st.spinner(f"Agent 325270269318 infiltrating global networks..."):
+                # Real-Time Scrapping Logic (DuckDuckGo Search Bypass)
+                search_url = f"https://html.duckduckgo.com/html/?q={target}+release+date+updates"
                 headers = {'User-Agent': 'Mozilla/5.0'}
                 
                 try:
                     response = requests.get(search_url, headers=headers)
                     soup = BeautifulSoup(response.text, 'html.parser')
-                    
-                    # Pehla valid search snippet utha rahe hain
                     snippet = soup.find('a', class_='result__snippet')
                     
+                    # Charming Output Representation
                     st.markdown(f"""
-                    <div class="data-card">
-                        <h3>📊 Intelligence Found for: {q.upper()}</h3>
-                        <p>{snippet.text if snippet else "Data is encrypted. Try a more specific name."}</p>
-                        <hr>
-                        <p style="color:#00ffcc; font-size:12px;">Sovereign Logic: 325270269318 | No API Used</p>
+                    <div class="royal-card">
+                        <h3>📊 ARCHIVE REPORT: {target.upper()}</h3>
+                        <p style="font-size: 18px; line-height: 1.6; color: #e0e0e0;">
+                            {snippet.text if snippet else "Intelligence encrypted or target hidden. Try a more specific designation."}
+                        </p>
+                        <hr style="border:0.1px solid #333;">
+                        <p style="color: #888; font-size: 11px; text-align: right;">Sovereign Protocol Active</p>
                     </div>
                     """, unsafe_allow_html=True)
-                except Exception as e:
-                    st.error("Neural Link Broken. Refresh the page.")
+                except:
+                    st.error("Neural Link timed out. Re-initializing...")
         else:
-            st.warning("Enter a target, Samraat!")
+            st.warning("Samraat, the target field is empty!")
 
-def run_audit():
-    st.title("⚖️ Electricity Surgical Audit")
-    u = st.number_input("Units:", value=2300.0)
-    l = st.number_input("Load (KW):", value=1.0)
-    d = st.number_input("Days:", value=88)
-    if st.button("Start Audit"):
-        max_p = l * 24 * d
-        if u > max_p: st.error(f"🚨 FRAUD DETECTED! Ghost Units: {u-max_p:.0f}")
-        else: st.success("✅ Billing Logic Secure.")
+def run_audit_command():
+    st.markdown("<h2>⚖️ AUDIT COMMAND</h2>", unsafe_allow_html=True)
+    u = st.number_input("Recorded Units:", value=2300.0)
+    l = st.number_input("Connected Load (KW):", value=1.0)
+    d = st.number_input("Cycle Days:", value=88)
+    
+    if st.button("Execute Surgical Audit"):
+        max_possible = l * 24 * d
+        if u > max_possible:
+            st.error(f"🚨 FRAUD DETECTED! Ghost Units Found: {u-max_possible:.0f}")
+        else:
+            st.success("✅ Energy Logic Secure. No discrepancies found.")
 
 if __name__ == "__main__":
     main()
