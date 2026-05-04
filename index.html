@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pari Sovereign Elite</title>
+    <style>
+        body { background: #000; color: gold; text-align: center; font-family: 'Arial'; padding-top: 100px; }
+        .pari-btn { padding: 20px 40px; font-size: 24px; background: gold; color: black; border-radius: 50px; cursor: pointer; border: none; font-weight: bold; }
+        .status { margin-top: 20px; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>👑 Pari Sovereign Elite</h1>
+    <p>Samraat, आपकी परी हाजिर है।</p>
+    <button class="pari-btn" onclick="startTalk()">🎤 परी से बात करें</button>
+    <div id="status" class="status"></div>
+
+    <script>
+        async function startTalk() {
+            const status = document.getElementById('status');
+            status.innerText = "परी सोच रही हैं...";
+            
+            const response = await fetch('/speak', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({text: "नमस्ते परी, कैसे हो?"})
+            });
+            
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const audio = new Audio(url);
+            status.innerText = "परी बोल रही हैं... ✨";
+            audio.play();
+        }
+    </script>
+</body>
+</html>
