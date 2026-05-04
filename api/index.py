@@ -33,11 +33,3 @@ def speak():
         return send_file(audio_stream, mimetype="audio/mpeg")
     except Exception as e:
         return {"error": str(e)}, 500
-```
-
-**२. `requirements.txt` अपडेट करा (सबसे ज़रूरी) 🛠️**
-GitHub में `requirements.txt` खोलऽ और ओकरा के बस एतना लिख के Save करा:
-```text
-flask
-google-genai
-gTTS
